@@ -1,0 +1,16 @@
+
+TYPE
+	state : 
+		(
+		ST_DEC_NEG,
+		ST_DEC_POS,
+		ST_NEG,
+		ST_POS,
+		ST_ACC_NEG,
+		ST_ACC_POS,
+		ST_CLOSE,
+		ST_OPEN,
+		ST_UNKNOWN,
+		ST_INIT
+		);
+END_TYPE

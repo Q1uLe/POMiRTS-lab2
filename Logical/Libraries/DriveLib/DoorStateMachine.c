@@ -37,7 +37,7 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 				inst->state = ST_CLOSE;
 				break;
 			} else {
-				inst->speed = 0;
+				inst->speed = (inst->direction == 0)?-50:50;
 				break;
 			}
 		

@@ -14,8 +14,8 @@ void _CYCLIC ProgramCyclic(void)
 {
 	timeCounter++;
 	ledSM.timer = timeCounter;
-	ledSM.state = doorSM.state;
 	DoorStateMachine(&doorSM);
+	ledSM.state = doorSM.state;
 	LedStateMachine(&ledSM);
 	stateMachine.speed = doorSM.speed;
 	DriveStateMachine(&stateMachine);

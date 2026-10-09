@@ -20,7 +20,7 @@ void LedStateMachine(struct LedStateMachine* inst)
 			break;
 		
 		case ST_UNKNOWN:
-			if (inst->timer%10==0){
+			if (inst->timer%5==0){
 				inst->led1=!inst->led1;
 				inst->led2=!inst->led2;
 				inst->led3=!inst->led3;

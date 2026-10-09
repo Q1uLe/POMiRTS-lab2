@@ -1,0 +1,7 @@
+Temp/
+Binaries/
+Diagnosis/*
+!Diagnosis/Config1
+as/
+asd.docx
+lab2_2.isopen

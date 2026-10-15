@@ -13,13 +13,13 @@ VAR_CONFIG
 	Cyclic#1.gAxis01_DiDoIf.iDriveReady AT %IX."8I64xxxxxxx.00x-1".ETAD_Input_Bool_02;
 	stateMachine.state AT %IW."8I64xxxxxxx.00x-1".ETAD_Input;
 	stateMachine.command AT %QW."8I64xxxxxxx.00x-1".CMDD_Output;
-	ledSM.led1 AT %QX."X20DO9322".DigitalOutput02;
-	ledSM.led2 AT %QX."X20DO9322".DigitalOutput03;
-	ledSM.led3 AT %QX."X20DO9322".DigitalOutput04;
-	ledSM.led4 AT %QX."X20DO9322".DigitalOutput05;
-	doorSM.direction AT %IX."X20DI9371".DigitalInput01;
-	doorSM.sw1 AT %IX."X20DI9371".DigitalInput02;
-	doorSM.sw2 AT %IX."X20DI9371".DigitalInput03;
-	doorSM.sw3 AT %IX."X20DI9371".DigitalInput04;
-	doorSM.sw4 AT %IX."X20DI9371".DigitalInput05;
+	::doorSM.direction AT %IX."X20DI9371".DigitalInput01;
+	::doorSM.sw1 AT %IX."X20DI9371".DigitalInput02;
+	::doorSM.sw3 AT %IX."X20DI9371".DigitalInput04;
+	::doorSM.sw4 AT %IX."X20DI9371".DigitalInput05;
+	::doorSM.sw2 AT %IX."X20DI9371".DigitalInput03;
+	::ledSM.led4 AT %QX."X20DO9322".DigitalOutput05;
+	::ledSM.led3 AT %QX."X20DO9322".DigitalOutput04;
+	::ledSM.led2 AT %QX."X20DO9322".DigitalOutput03;
+	::ledSM.led1 AT %QX."X20DO9322".DigitalOutput02;
 END_VAR

@@ -11,7 +11,18 @@
 /* TODO: Add your comment here */
 void DoorStateMachine(struct DoorStateMachine* inst)
 {
-	// 
+	static plcbit previousSw[4];
+	plcbit sw1Click = (inst->sw1 != previousSw[0]);
+	plcbit sw2Click = (inst->sw2 != previousSw[1]);
+	plcbit sw3Click = (inst->sw3 != previousSw[2]);
+	plcbit sw4Click = (inst->sw4 != previousSw[3]);
+
+	/* Remember levels every cycle; either edge is a one-cycle click. */
+	previousSw[0] = inst->sw1;
+	previousSw[1] = inst->sw2;
+	previousSw[2] = inst->sw3;
+	previousSw[3] = inst->sw4;
+
 	switch (inst->state){
 		/*
 			Для согласованности индикации, тумблера, отвечающего за направление, и кнопок,
@@ -30,10 +41,10 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 			При этом помимо направления, также должен быть задействован соответствующий датчик,
 			иначе остаемся в неизвестном состоянии
 			*/
-			if (inst->sw1 && inst->direction == 0){
+			if (sw1Click && inst->direction == 0){
 				inst->state = ST_OPEN;
 				break;
-			} else if (inst->sw4 && inst->direction == 1){
+			} else if (sw4Click && inst->direction == 1){
 				inst->state = ST_CLOSE;
 				break;
 			} else {
@@ -71,12 +82,12 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 			и состояние ST_DEC_NEG
 			*/
 			// Остаемся в ST_ACC_POS
-			if (inst->direction == 1 && !inst->sw2){
+			if (inst->direction == 1 && !sw2Click){
 				inst->speed = 100;	
 				break;
 			}
 			// Сработал второй датчик, переход в ST_POS
-			else if (inst->direction == 1 && inst->sw2){
+			else if (inst->direction == 1 && sw2Click){
 				inst->state = ST_POS;
 				break;
 			} 
@@ -98,7 +109,7 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 			После срабатывания третьего датчика переход в ST_DEC_POS. Если сменится направление то переход в ST_NEG.
 			*/
 			// То же состояние
-			if (inst->direction == 1 && !inst->sw3){
+			if (inst->direction == 1 && !sw3Click){
 				inst->speed = 200;
 				break;
 			}
@@ -124,12 +135,12 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 			датчика переход в состояние ST_CLOSE. При смене направления, переход в состояние ST_ACC_NEG. Иначе ST_UNKNOWN.
 			*/
 			// Сохранение состояния
-			if (inst->direction == 1 && !inst->sw4){
+			if (inst->direction == 1 && !sw4Click){
 				inst->speed=100;
 				break;
 			}
 			// Переход в закрытое состояние
-			else if (inst->direction == 1 && inst->sw4)
+			else if (inst->direction == 1 && sw4Click)
 			{
 				inst->state = ST_CLOSE;
 				break;
@@ -166,11 +177,11 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 			/*
 				Состояние открывающихся ворот, сохраняет состояние пока не сработает 3 датчик или не изменится направление
 			*/
-			if (inst->direction == 0 && !inst->sw3){
+			if (inst->direction == 0 && !sw3Click){
 				inst->speed = -100;
 				break;
 			}
-			else if (inst->sw3){
+			else if (sw3Click){
 				inst->state = ST_NEG;
 				break;
 			}
@@ -185,7 +196,7 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 		
 		case ST_NEG:
 			/*Открытие ворот на макс скорости*/
-			if (inst->direction == 0 && !inst->sw2){
+			if (inst->direction == 0 && !sw2Click){
 				inst->speed = -200;
 				break;
 			}
@@ -202,7 +213,7 @@ void DoorStateMachine(struct DoorStateMachine* inst)
 				break;
 			}
 		case ST_DEC_NEG:
-			if (inst->direction == 0 && !inst->sw1){
+			if (inst->direction == 0 && !sw1Click){
 				inst->speed = -100;
 				break;
 			}
